@@ -16,7 +16,7 @@ print("=== day01: 变量、类型与字符串 ===")
 name = "张三"
 age = 20
 city = "北京"
-print(f"我是{name},{age}岁,来自{city}")
+print(f"我是{name}，{age}岁，来自{city}")
 
 # ---------------------------------------------------------------- Q2
 # 打印上面三个变量各自的类型（用 type() 和一个 print 搞定）
@@ -40,7 +40,8 @@ print(s)
 # 提示：.split() 和 len()
 # TODO: 写你的代码
 s = "I am learning python and it is fun"
-result = s.split(" ")
+result = s.split()
+print(result)
 print(len(result))
 
 # ---------------------------------------------------------------- Q5
@@ -66,7 +67,7 @@ print(c1,c2)
 # TODO: 写你的代码
 s = "2026-11-11"
 s = s.split("-")
-print(s)
+print(s[0],s[1],s[2])
 
 # ---------------------------------------------------------------- Q8
 # 把 "Python" 反转过来打印
