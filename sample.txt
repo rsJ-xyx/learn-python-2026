@@ -1,0 +1,20 @@
+A software agent is a program that takes actions on behalf of a user. Unlike a
+simple chat model, an agent can plan, call tools, observe results, and decide
+what to do next. Agents work well when the task is open ended, when the steps
+are not known in advance, and when a wrong answer is easy to detect and correct.
+They work badly when the task is fixed and simple, because every extra step adds
+cost, latency, and a chance to fail.
+
+The most useful pattern is small and boring: give the model a clear goal, a small
+set of well described tools, and a way to check whether it succeeded. Then let it
+loop until the goal is met or the budget runs out. Most production failures come
+not from weak models but from vague goals, overlapping tools, and no feedback.
+
+Retrieval is the second half of the story. A model that can look things up is
+more accurate than one that only remembers. Split the documents into chunks,
+embed them, store the vectors, and search when a question arrives. Reranking and
+citation checking turn a plausible answer into a trustworthy one.
+
+Good engineering here is mostly about measurement. Build a small test set,
+measure retrieval recall, measure task success, count the money you spend, and
+read the traces when something breaks. Everything else is decoration.
