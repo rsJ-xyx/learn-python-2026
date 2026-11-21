@@ -9,6 +9,8 @@
 #   python day05.py
 import json
 import argparse
+from asyncio.windows_events import NULL
+
 print("=== day05: 文本词频统计 ===")
 
 # ---------------------------------------------------------------- Q1
@@ -28,8 +30,12 @@ def print_sample(sample):
 # 提示：可以用 str.translate 或循环 replace；简单点用 replace 连着写
 # TODO
 def clean_sample(sample):
-    with open(sample,"r",encoding= 'UTF-8') as f:
-        content = f.read()
+    try:
+        with open(sample,"r",encoding= 'UTF-8') as f:
+            content = f.read()
+    except FileNotFoundError:
+        print("没有找到该文件")
+        return NULL
     clean_char = [',', '.','!','?',';',':','"',"'"]
     clean_content = content.lower()
     for i in clean_char:
@@ -76,13 +82,20 @@ def beautify_print(content):
 # 提示：import json; json.dump(..., ensure_ascii=False, indent=2)
 # TODO
 def save_and_read(sort_dict):
-    with open("top.json","w",encoding="UTF-8") as f:
-        json.dump(sort_dict,f,ensure_ascii=False,indent=2)
-    with open("top.json","r",encoding="UTF-8") as f:
-        json_reader = json.load(f)
-    print(json_reader)
-    print(f"是否相等:{json_reader == sort_dict}")
-
+    try:
+        with open("top.json","w",encoding="UTF-8") as f:
+            json.dump(sort_dict,f,ensure_ascii=False,indent=2)
+    except FileNotFoundError:
+        print("没有找到改文件")
+        return NULL
+    try:
+        with open("top.json","r",encoding="UTF-8") as f:
+            json_reader = json.load(f)
+        print(json_reader)
+        print(f"是否相等:{json_reader == sort_dict}")
+    except FileNotFoundError:
+        print("没有找到该文件")
+        return NULL
 # ---------------------------------------------------------------- Q7
 # 用 argparse 让文件名可以从命令行传：
 #   python day05.py --file sample.txt --top 5
