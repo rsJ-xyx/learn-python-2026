@@ -11,6 +11,9 @@
 #   python day09.py
 
 
+from day08 import Node
+
+
 # ---------------------------------------------------------------- Q1
 # 用 list 实现 Stack：push / pop / peek / is_empty / __len__
 # pop 在空栈上要抛 IndexError("栈是空的")，不能返回 None 蒙混过去
@@ -21,22 +24,21 @@ class Stack:
 
     def push(self, value):
         """入栈。O(1)"""
-        raise NotImplementedError
+        self.items.append(value)
 
     def pop(self):
         """出栈并返回。O(1)"""
-        raise NotImplementedError
+        return self.items.pop()
 
     def peek(self):
         """看一眼栈顶但不弹出。O(1)"""
-        raise NotImplementedError
+        return self.items[-1]
 
     def is_empty(self):
-        raise NotImplementedError
+        return not self.items
 
     def __len__(self):
-        raise NotImplementedError
-
+        return len(self.items)
 
 # ---------------------------------------------------------------- Q2
 # 用你写的 Stack 判断括号是否匹配：()[]{} 三种括号
@@ -48,8 +50,16 @@ class Stack:
 #       扫完后栈必须为空。
 # TODO
 def is_balanced(text):
-    raise NotImplementedError
-
+    stack = Stack()
+    pairs = {")":"(","}":"{","]":"["}
+    for char in text:
+        if char in "(,{,[":
+            stack.push(char)
+        elif char in pairs:
+            if stack.is_empty() or pairs[char] != stack.peek():
+                return False
+            stack.pop()
+    return stack.is_empty()
 
 # ---------------------------------------------------------------- Q3
 # 用两个栈实现一个队列（经典的"栈实现队列"）：
@@ -63,13 +73,21 @@ class QueueByStacks:
         self.out_stack = []
 
     def push(self, value):
-        raise NotImplementedError
+        self.in_stack.append(value)
 
     def pop(self):
-        raise NotImplementedError
+        if not self.out_stack:
+            while self.in_stack:
+                self.out_stack.append(self.in_stack.pop())
+        return self.out_stack.pop()
+
+
 
     def is_empty(self):
-        raise NotImplementedError
+        if not self.out_stack and not self.in_stack:
+            return True
+        else:
+            return False
 
 
 # ---------------------------------------------------------------- Q4
@@ -84,13 +102,28 @@ class LinkedQueue:
         self.size = 0
 
     def enqueue(self, value):
-        raise NotImplementedError
+        node = Node(value)
+        self.size += 1
+        if self.head is None:
+            self.head = node
+            self.tail = node
+        else:
+            self.tail.next = node
+            self.tail = node
+
 
     def dequeue(self):
-        raise NotImplementedError
+        if self.head is None:
+            raise IndexError("队列为空")
+        node = self.head
+        self.head = node.next
+        if self.head is None:
+            self.tail = None
+        self.size -= 1
+        return node.value
 
     def __len__(self):
-        raise NotImplementedError
+        return self.size
 
 
 # ---------------------------------------------------------------- Q5
@@ -144,6 +177,6 @@ if __name__ == "__main__":
         pass
 
     print("== day09 全部通过 ==")
+    print("=== 收工：git add . && git commit -m 'day09: 栈与队列' ===")
 
 
-print("=== 收工：git add . && git commit -m 'day09: 栈与队列' ===")
