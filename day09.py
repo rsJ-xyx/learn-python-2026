@@ -17,7 +17,6 @@ from day08 import Node
 # ---------------------------------------------------------------- Q1
 # 用 list 实现 Stack：push / pop / peek / is_empty / __len__
 # pop 在空栈上要抛 IndexError("栈是空的")，不能返回 None 蒙混过去
-# TODO
 class Stack:
     def __init__(self):
         self.items = []
@@ -48,7 +47,6 @@ class Stack:
 #   "(("      → False
 # 提示：左括号入栈；遇到右括号看栈顶是不是对应的左括号，不是就 False；
 #       扫完后栈必须为空。
-# TODO
 def is_balanced(text):
     stack = Stack()
     pairs = {")":"(","}":"{","]":"["}
@@ -66,7 +64,6 @@ def is_balanced(text):
 #   in_stack  负责 push
 #   out_stack 负责 pop：out 空了就把 in 全部倒过来
 # 要求 push / pop 均摊 O(1)
-# TODO
 class QueueByStacks:
     def __init__(self):
         self.in_stack = []
@@ -94,7 +91,6 @@ class QueueByStacks:
 # 用**链表**实现队列，enqueue / dequeue 都必须是 O(1)。
 # 关键：同时保存 head 和 tail 两个指针，出队改 head，入队改 tail。
 # 注意空队列出队要抛 IndexError。
-# TODO
 class LinkedQueue:
     def __init__(self):
         self.head = None
@@ -131,7 +127,7 @@ class LinkedQueue:
 #   不断加入任务，每次取最早的那个打印，打印 3 个就停。
 # 再把 deque 换成 list 试一次，感受 pop(0) 和 popleft() 的差别。
 # 只写注释说明差别即可（不用真跑两遍）。
-# TODO
+
 
 
 # ================================================================ 自测
